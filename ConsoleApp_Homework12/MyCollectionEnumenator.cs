@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Homework12
 {
-    public class MyCollectionEnumerator<T> : IEnumerator
+    public class MyCollectionEnumerator<T> : IEnumerator<T>
     {
         private MyCollection<T> _myCollection;
         private int position;
@@ -14,6 +15,13 @@ namespace Homework12
         }
 
         public object Current => _myCollection[position].Value;
+
+        T IEnumerator<T>.Current => _myCollection[position].Value;
+
+        public void Dispose()
+        {
+
+        }
 
         public bool MoveNext()
         {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Homework12
 {
-    public class MyCollection<T> : IEnumerable
+    public class MyCollection<T> : IEnumerable<T>
     {
         public delegate void MyCollectionHandler(T value);
         public event MyCollectionHandler Notify;
@@ -56,7 +57,7 @@ namespace Homework12
                     break;
                 }
             }
-            Notify(node.Value);
+            Notify?.Invoke(node.Value);
         }
 
         public void RemoveAll(Node node)
@@ -183,6 +184,11 @@ namespace Homework12
         }
 
         public IEnumerator GetEnumerator()
+        {
+            return new MyCollectionEnumerator<T>(this);
+        }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return new MyCollectionEnumerator<T>(this);
         }
